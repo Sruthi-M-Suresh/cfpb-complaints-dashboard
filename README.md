@@ -25,17 +25,24 @@ _An interactive Tableau dashboard built on the full CFPB Consumer Complaint Data
 ---
 <h2><a class="anchor" id="overview"></a>Overview</h2>
 
-This project turns the full CFPB Consumer Complaint Database (18,590,360 complaints, 2011 to 2026) into an interactive dashboard. A complete pipeline was built using DuckDB and SQL for cleaning and aggregation, and Tableau for visualization. One aggregated table of about 796K rows feeds every chart, so each filter drives the whole dashboard.
+## Overview
+
+An end-to-end data analytics project built on the CFPB Consumer Complaint Database, comprising **18.6 million records** spanning 2011–2026.
+The project demonstrates the application of **SQL and DuckDB** for large-scale data processing, data quality checks, standardization, anomaly identification, and aggregation. The processed data is then visualized in **Tableau Public** through an interactive dashboard highlighting complaint trends, product distribution, company performance, response timeliness, and resolution outcomes.
+The dashboard transforms millions of records into meaningful, interactive insights, enabling users to investigate consumer complaint trends, compare financial institutions, analyze geographical patterns, and evaluate complaint resolution outcomes.
 
 ---
 <h2><a class="anchor" id="business-problem"></a>Business Problem</h2>
 
-The raw file is too large and uneven to read directly. This project aims to:
-- Show where complaints are concentrated by product, company, and state
-- Separate credit reporting from every other product, since one product dominates the data
-- Tell real trends apart from one-off events such as the January 2025 burst
-- Place each company's complaint volume next to its timely-response and relief rates
-- Check whether complaints are answered on time and closed
+The CFPB Consumer Complaint Database contains millions of records across multiple financial products, companies, and geographical locations. However, its large volume, inconsistent categories, variations in company names, and unusual complaint spikes make it challenging to derive reliable insights directly from the raw data.
+This project aims to address the following business challenges:
+
+- **Complaint Distribution:** Identify which financial products, companies, and states account for the highest complaint volumes.
+- **Trend Analysis:** Understand how complaint volumes change over time and identify unusual spikes or anomalies.
+- **Data Segmentation:** Analyze credit reporting separately from other financial products to avoid skewed comparisons.
+- **Company Response Analysis:** Compare financial institutions based on complaint volumes, timely response rates, and resolution outcomes.
+- **Resolution Analysis:** Evaluate how complaints are addressed, including monetary relief, non-monetary relief, and explanations.
+- **Geographical Analysis:** Identify states with the highest complaint volumes and explore regional patterns.
 
 ---
 <h2><a class="anchor" id="dataset"></a>Dataset</h2>
@@ -48,79 +55,70 @@ The raw file is too large and uneven to read directly. This project aims to:
 ---
 <h2><a class="anchor" id="tools--technologies"></a>Tools & Technologies</h2>
 
-- DuckDB (querying 18.6M rows locally)
-- SQL (cleaning, categorizing, flagging, deduplicating, aggregating)
-- Tableau Public (calculated fields, table calculations, LOD expressions, parameters)
-- GitHub
+- **DuckDB:** Large-scale data querying and processing of 18.6M records.
+- **SQL:** Data cleaning, transformation, standardization, anomaly flagging, deduplication, and aggregation.
+- **Tableau Public:** Interactive dashboard development using calculated fields, table calculations, Level of Detail (LOD) expressions, parameters, and filters.
+- **Git & GitHub:** Version control, project documentation, and repository management.
 
 ---
-<h2><a class="anchor" id="project-structure"></a>Project Structure</h2>
-
-```
 cfpb-complaints-dashboard/
 │
 ├── README.md
-├── .gitignore
-├── CFPBConsumerComplaints2011-2026.twbx   # Tableau packaged workbook
 │
-├── sql/                                   # DuckDB SQL pipeline (run in order)
+├── CFPBConsumerComplaints2011-2026.twbx
+│
+├── SQL/
 │   ├── 01_build_clean_table.sql
 │   ├── 02_flag_jan2025_burst.sql
 │   ├── 03_company_name_dedupe.sql
 │   └── 04_export_dashboard_cube.sql
 │
-├── docs/                                  # Cleaning log and checks
-│   └── cleaning_and_analysis_notes.txt
-│
-├── images/                                # Dashboard screenshot
-│   └── dashboard.png
-```
-
+└── images/
+    ├── dashboard.png
+    ├── dashboard_2.png
+    └── dashboard_3.png
+    
 ---
 <h2><a class="anchor" id="data-cleaning--preparation"></a>Data Cleaning & Preparation</h2>
 
-- Built a clean table with converted data types, merged product categories (the CFPB renamed them over time), grouped states, and added flags
-- Flagged the January 2025 burst (14 to 31 January) instead of deleting it, so the dashboard can show trends with and without it
-- Standardized company names by mapping spelling variants to the most frequent spelling
-- Exported one summary table (about 796K rows) by month, product, company, state, and outcome
-- Checks: all 18,590,360 rows kept with no duplicate IDs, and the exported table sums to the same total
+Processed 18.6M CFPB complaint records using DuckDB and SQL, involving:
+Data type conversion, product category standardization, and state grouping.
+Identification and flagging of the January 2025 complaint spike while retaining original records.
+Company name standardization to ensure consistent reporting.
+Aggregation into a dashboard-ready dataset of approximately 796K records.
+Data validation through record count reconciliation and duplicate ID checks.
+All 18,590,360 source records were retained throughout the pipeline.
 
 ---
 <h2><a class="anchor" id="exploratory-data-analysis-eda"></a>Exploratory Data Analysis (EDA)</h2>
 
-**One Product Dominates:**
-- Credit reporting is 82.1% of all complaints
-- Its share grew from 3% (2012) to 91% (2026, partial year)
-
-**Volume and Outliers:**
-- Busiest full month: September 2026 (678,922 complaints)
-- January 2025 (non-credit-reporting): 109,916 complaints, dropping to about 49,800 once the burst rows are excluded
-
-**Data Quality Issues Found:**
-- Company names appeared with different spellings
-- Product categories changed over time
+**Product Distribution**: Credit reporting accounts for 82.1% of total complaints, increasing from 3% in 2012 to 91% in 2026 (partial year).
+**Complaint Trends**: September 2026 recorded the highest monthly complaint volume, with 678,922 complaints.
+**Anomaly Analysis**: January 2025 recorded 109,916 non-credit-reporting complaints, reducing to approximately 49,800 after excluding the flagged complaint burst.
+**Company Analysis**: Identified variations in complaint volumes, timely response rates, and resolution outcomes across financial institutions.
+**Geographical Analysis**: Texas, Florida, and California recorded the highest complaint volumes.
 
 ---
 <h2><a class="anchor" id="research-questions--key-findings"></a>Research Questions & Key Findings</h2>
 
 1. **Where Complaints Concentrate**: Credit reporting is 82.1% of 18,590,360 complaints, so it gets its own charts
-2. **Top Companies**: The three credit bureaus lead; TransUnion has about 5.15M complaints (relief rate 58.7%), Equifax 47.4%, Experian 13.3%
-3. **Real Trend or One-off?**: Credit reporting climbs steadily; January 2025 shows a burst of about 60K complaints in two weeks, concentrated at Block, Early Warning, Navy Federal, Capital One, and JPMorgan Chase (the cause is not in the data)
-4. **Timely and Closed**: 99.4% get a timely response, 96.6% are closed
-5. **How They Close**:
+2. **Which Companies Receive the Most Complaints**: The three credit bureaus lead; TransUnion has about 5.15M complaints (relief rate 58.7%), Equifax 47.4%, Experian 13.3%
+3. **Are Complaint Spikes Part of a Larger Trend**: Credit reporting climbs steadily; January 2025 shows a burst of about 60K complaints in two weeks, concentrated at Block, Early Warning, Navy Federal, Capital One, and JPMorgan Chase (the cause is not in the data)
+4. **Are Companies Responding to Complaints**: 99.4% of complaints received a timely response, while 96.6% were recorded as closed.
+5. **How Are Complaints Resolved?**:
    - Credit reporting: about 60.2% closed with explanation, 39.7% with non-monetary relief
    - Other products: about 79.1% with explanation, 12.3% non-monetary relief, 6.5% monetary relief
-6. **Where They Come From**: Texas (2.58M), Florida (2.55M), California (1.83M), Georgia (1.37M), New York (1.07M); raw counts, not per capita
+6. **Which States Report the Most Complaints**: Texas (2.58M), Florida (2.55M), California (1.83M), Georgia (1.37M), New York (1.07M); raw counts, not per capita
 
 ---
 <h2><a class="anchor" id="dashboard"></a>Dashboard</h2>
 
-- Tableau Public dashboard shows:
-  - KPIs: total complaints, credit reporting share, timely rate, busiest month
-  - Monthly trends for credit reporting and for all other products (with a Hide burst toggle)
-  - Credit reporting share by year and complaints by product
-  - Top 12 companies with relief and timely rates
-  - Resolution outcomes and a state map
+- Dashboard Features:
+  - KPIs: Total complaints, credit reporting share, timely response rate, and busiest month.
+  - Complaint Trends: Monthly trends for credit reporting and other financial products, with a toggle to exclude the January 2025 complaint burst.
+  - Product Analysis: Year-wise credit reporting share and complaint distribution across products.
+  - Company Analysis: Top 12 companies ranked by complaint volume, with relief and timely response rates.
+  - Resolution Analysis: Breakdown of complaint resolution outcomes and geographical distribution through an interactive state map.
 - Filters: Year, Product, Company, State, Hide burst
 - Caveats: 2011 and 2026 are partial years, the latest month is undercounted, counts are not per capita, and relief rate is not a company quality score
 
@@ -155,17 +153,16 @@ duckdb complaints.duckdb
 ---
 <h2><a class="anchor" id="final-recommendations"></a>Final Recommendations</h2>
 
-- Always analyze credit reporting separately from other products
-- Investigate the January 2025 burst further; the data does not explain its cause
-- Read relief rates with volume and timely response, not as a quality score
-- Normalize by population or customer base for fairer state and company comparisons
-- Use the issue and sub-issue fields to see what customers actually complain about
-
+- Analyze credit reporting separately from other financial products to avoid skewed comparisons.
+- Investigate the January 2025 complaint spike further, as its underlying cause remains unknown.
+- Interpret relief rates alongside complaint volumes and timely response rates rather than as standalone performance indicators.
+- Use population or customer-base normalization for fairer geographical and company comparisons.
+- Explore issue and sub-issue categories to understand the specific problems reported by consumers.
 ---
 <h2><a class="anchor" id="author--contact"></a>Author & Contact</h2>
 
 **Sruthi Suresh**  
-Data Analyst  
+SQL | DuckDB | Tableau 
 📧 Email: thesruthisuresh@gmail.com  
-🔗 [LinkedIn](https://www.linkedin.com/in/your-profile/)  
+🔗 [LinkedIn](https://www.linkedin.com/in/sruthi-suresh-724b231ba/)
 🔗 [GitHub](https://github.com/Sruthi-M-Suresh)
