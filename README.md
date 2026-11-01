@@ -61,6 +61,9 @@ This project aims to address the following business challenges:
 - **Git & GitHub:** Version control, project documentation, and repository management.
 
 ---
+<h2><a class="anchor" id="project-structure"></a>Project Structure</h2>
+
+```
 cfpb-complaints-dashboard/
 │
 ├── README.md
@@ -77,6 +80,9 @@ cfpb-complaints-dashboard/
     ├── dashboard.png
     ├── dashboard_2.png
     └── dashboard_3.png
+```
+
+---
     
 ---
 <h2><a class="anchor" id="data-cleaning--preparation"></a>Data Cleaning & Preparation</h2>
