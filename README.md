@@ -1,7 +1,8 @@
 
 # 📊 CFPB Consumer Complaints Dashboard – 18.6M Records, DuckDB + SQL + Tableau
 
-_Cleaning and analyzing 18.6 million consumer complaints to show where they come from, who they are about, and how they are resolved, using DuckDB, SQL, and Tableau._
+_An interactive Tableau dashboard built on the full CFPB Consumer Complaint Database
+(18.6 million complaints), cleaned and aggregated with DuckDB and SQL.._
 
 **🔗 Live dashboard:** [Open on Tableau Public](https://public.tableau.com/views/CFPBConsumerComplaints2011-2026/CFPBComplaintsDashboard)
 
