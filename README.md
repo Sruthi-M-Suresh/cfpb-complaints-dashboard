@@ -126,7 +126,8 @@ cfpb-complaints-dashboard/
 
 <img width="1572" height="675" alt="Dashboard_image_1" src="https://github.com/user-attachments/assets/a9f29a38-af7f-437e-bc61-0721111b4179" />
 <img width="1572" height="815" alt="Dashboard_image_2" src="https://github.com/user-attachments/assets/2fa14a49-28da-41a6-8dfa-335751dc04ed" />
-<img width="1572" height="815" alt="Dashboard_image_3" src="https://github.com/user-attachments/assets/3aed08a7-c0eb-4e74-9969-99fe79eecd9f" />
+<img width="1577" height="607" alt="Dashboard_image_3" src="https://github.com/user-attachments/assets/143a2548-6cdd-4113-a394-be3bcbf38aa8" />
+
 
 🔗 [View the live dashboard](https://public.tableau.com/views/CFPBConsumerComplaints2011-2026/CFPBComplaintsDashboard)
 
