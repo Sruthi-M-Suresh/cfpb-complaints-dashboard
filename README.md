@@ -6,8 +6,6 @@ _An interactive Tableau dashboard built on the full CFPB Consumer Complaint Data
 
 **🔗 Live dashboard:** [Open on Tableau Public](https://public.tableau.com/views/CFPBConsumerComplaints2011-2026/CFPBComplaintsDashboard)
 
-![CFPB Consumer Complaints Dashboard](images/dashboard.png)
-
 ---
 
 ## 📌 Table of Contents
@@ -126,7 +124,9 @@ cfpb-complaints-dashboard/
 - Filters: Year, Product, Company, State, Hide burst
 - Caveats: 2011 and 2026 are partial years, the latest month is undercounted, counts are not per capita, and relief rate is not a company quality score
 
-![CFPB Consumer Complaints Dashboard](images/dashboard.png)
+<img width="1572" height="675" alt="Dashboard_image_1" src="https://github.com/user-attachments/assets/a9f29a38-af7f-437e-bc61-0721111b4179" />
+<img width="1572" height="815" alt="Dashboard_image_2" src="https://github.com/user-attachments/assets/2fa14a49-28da-41a6-8dfa-335751dc04ed" />
+<img width="1572" height="815" alt="Dashboard_image_3" src="https://github.com/user-attachments/assets/3aed08a7-c0eb-4e74-9969-99fe79eecd9f" />
 
 🔗 [View the live dashboard](https://public.tableau.com/views/CFPBConsumerComplaints2011-2026/CFPBComplaintsDashboard)
 
