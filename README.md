@@ -168,7 +168,7 @@ duckdb complaints.duckdb
 <h2><a class="anchor" id="author--contact"></a>Author & Contact</h2>
 
 **Sruthi Suresh**  
-SQL | DuckDB | Tableau 
+SQL | DuckDB | Tableau </br>
 📧 Email: thesruthisuresh@gmail.com  
 🔗 [LinkedIn](https://www.linkedin.com/in/sruthi-suresh-724b231ba/)
 🔗 [GitHub](https://github.com/Sruthi-M-Suresh)
